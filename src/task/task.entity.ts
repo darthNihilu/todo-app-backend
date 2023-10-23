@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+export enum Category {
+  TASK = 'task',
+  VIDEO = 'video',
+  SHOPPING = 'shopping',
+}
 
 @Entity()
 export class TaskEntity {
@@ -8,6 +14,12 @@ export class TaskEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   date: string;
+
+  @Column({ default: false })
+  completed: boolean;
+
+  @Column({ default: Category.TASK })
+  category: Category;
 }
