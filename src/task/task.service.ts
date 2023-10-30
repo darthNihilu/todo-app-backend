@@ -45,4 +45,15 @@ export class TaskService {
     const task = await this.taskRepository.findOne({ where: { id } });
     return await this.taskRepository.save({ ...task, completed: false });
   }
+
+  async updateTask(id: number, data: Partial<TaskEntity>): Promise<TaskEntity | null> {
+    const task = await this.taskRepository.findOne({ where: { id } });
+
+    if (!task) {
+      return null; // Task not found
+    }
+
+    const updatedTask = { ...task, ...data };
+    return this.taskRepository.save(updatedTask);
+  }
 }

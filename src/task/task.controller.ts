@@ -63,4 +63,19 @@ export class TaskController {
     const newTask = await this.taskService.addTask(data);
     return returnAsJson(newTask);
   }
+
+  @Patch('/:id')
+  async updateTask(
+    @Param('id') id: number,
+    @Body() data: Partial<TaskEntity>
+  ): Promise<string> {
+    const updatedTask = await this.taskService.updateTask(id, data);
+
+    if (updatedTask === null) {
+      return 'Task not found'; // You can customize the error response
+    }
+
+    return returnAsJson(updatedTask);
+  }
+
 }
